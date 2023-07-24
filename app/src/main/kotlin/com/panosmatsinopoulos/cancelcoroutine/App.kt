@@ -11,7 +11,7 @@ fun main() {
         val job = launch(Dispatchers.Default) {
             var nextPrintTime = startTime
             var i = 0
-            while (i < 5) {
+            while (isActive) {
                 if (System.currentTimeMillis() >= nextPrintTime) {
                     println("job: I am sleeping ${i++}")
                     nextPrintTime += 500L
