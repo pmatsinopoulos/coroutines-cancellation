@@ -3,13 +3,22 @@
  */
 package com.panosmatsinopoulos.cancelcoroutine
 
-class App {
-    val greeting: String
-        get() {
-            return "Hello World!"
-        }
-}
+import kotlinx.coroutines.cancelAndJoin
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 fun main() {
-    println(App().greeting)
+    runBlocking {
+        val job = launch {
+            repeat(1_000) { i ->
+                println("job: I am sleeping $i ...")
+                delay(500L)
+            }
+        }
+        delay(1_300L)
+        println("main: I'm tired waiting")
+        job.cancelAndJoin()
+        println("main. Now I can quit")
+    }
 }
